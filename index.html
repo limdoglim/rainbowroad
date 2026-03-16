@@ -811,20 +811,28 @@
                       key={idx}
                       onClick={() => {
                          playSfx('click');
-                         if (showStylePopup.part === 'feed') {
-                            useFood(opt.value);
-                            return;
-                         } else if (showStylePopup.part === 'outfit') {
+                         if (showStylePopup.part === 'outfit') {
                             setCatStats(prev => ({ ...prev, outfit: opt.value }));
+                         } else if (showStylePopup.part === 'feed') {
+                            useFood(opt.value);
                          } else {
                             setOutfit(prev => ({ ...prev, [showStylePopup.part]: opt.value }));
                          }
-                         setShowStylePopup(null);
+                         if (showStylePopup.part !== 'feed') setShowStylePopup(null);
                       }}
-                      className={`h-14 rounded-2xl flex items-center justify-center text-2xl shadow-sm border-2 transition hover:scale-110 active:scale-95 flex-shrink-0 ${outfit[showStylePopup.part] === opt.value ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200' : 'border-gray-200 bg-gray-50 hover:border-indigo-300'}`}
+                      className={`${opt.color ? "h-14" : "h-24"} rounded-2xl flex flex-col items-center justify-center shadow-sm border-2 transition hover:scale-110 active:scale-95 flex-shrink-0 overflow-hidden relative ${outfit[showStylePopup.part] === opt.value ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200' : 'border-gray-200 bg-gray-50 hover:border-indigo-300'}`}
                       style={opt.color ? { backgroundColor: opt.color } : {}}
                     >
-                      {opt.label || ''}
+                      {opt.color ? null : 
+                        (showStylePopup.part === 'feed' || showStylePopup.part === 'outfit' || showStylePopup.part.includes('Color')) ? 
+                        <span className="text-sm font-bold text-gray-700">{opt.label}</span> : 
+                        <div className="absolute top-2 w-[100px] h-[150px] transform scale-[0.4] origin-top flex justify-center">
+                          <Character outfit={getRenderOutfit({...outfit, [showStylePopup.part]: opt.value})} scale={1} />
+                        </div>
+                      }
+                      {!opt.color && !showStylePopup.part.includes('Color') && showStylePopup.part !== 'feed' && showStylePopup.part !== 'outfit' && (
+                         <span className="absolute bottom-1 text-[10px] font-bold text-gray-400 bg-white/80 px-1 rounded">{opt.label}</span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -837,8 +845,8 @@
             <div className="w-full h-full flex flex-col items-center justify-center relative z-10 px-4">
               <h1 className="text-5xl font-extrabold text-white drop-shadow-md mb-8 tracking-wider">무지개 구름 섬</h1>
               <div className="bg-white/50 p-6 md:p-8 rounded-3xl shadow-2xl flex flex-col lg:flex-row items-center gap-8 backdrop-blur-md border border-white/60 w-full max-w-5xl">
-                <div className="flex flex-col gap-4">
-                  <div className="flex-shrink-0 bg-white/70 p-6 rounded-2xl shadow-inner floating relative flex justify-center items-center">
+                <div className="flex flex-col xl:flex-row gap-6 items-center">
+                  <div className="flex-shrink-0 bg-white/70 p-6 pb-12 rounded-2xl shadow-inner floating relative flex justify-center items-center">
                     <Character outfit={getRenderOutfit()} scale={1.8} />
                   </div>
                   
