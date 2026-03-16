@@ -647,7 +647,7 @@
           setOwnedFoods(prev => ({ ...prev, [foodItem.id]: (prev[foodItem.id] || 0) + 1 }));
         } else {
           playSfx('click');
-          setTimeout(() => alert(`${foodItem.currency} 보석이 부족합니다!`);, 50);
+          setTimeout(() => alert(`${foodItem.currency} 보석이 부족합니다!`), 50);
         }
       };
 
@@ -719,7 +719,7 @@
           });
         } else {
           playSfx('click');
-          setTimeout(() => alert(`${item.currency} 보석이 부족합니다! 나무를 키워 모아오세요.`);, 50);
+          setTimeout(() => alert(`${item.currency} 보석이 부족합니다! 나무를 키워 모아오세요.`), 50);
         }
       };
 
