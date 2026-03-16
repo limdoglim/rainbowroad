@@ -851,9 +851,9 @@
                   </div>
                   
                   {/* 패밀리 펫 고양이 영역 */}
-                  <div className="bg-white/90 p-4 rounded-3xl shadow-lg border-2 border-pink-200 flex flex-col items-center relative">
+                  <div className="bg-white/90 p-4 rounded-3xl shadow-lg border-2 border-pink-200 flex flex-col items-center relative min-w-[300px]">
                     <h3 className="text-lg font-bold text-gray-700 absolute top-2 left-4">내 고양이 🐾</h3>
-                    <div className="flex gap-4 mt-8 mb-2 w-full px-4 text-sm font-bold text-gray-600 justify-between">
+                    <div className="flex gap-2 mt-8 mb-2 w-full px-2 text-sm font-bold text-gray-600 justify-around whitespace-nowrap">
                        <div className="flex flex-col items-center">
                          <span>🍖 배고픔: {catStats.hunger}/10</span>
                          <div className="w-24 bg-gray-200 h-2 rounded-full overflow-hidden mt-1"><div className="bg-orange-400 h-full" style={{width: `${catStats.hunger*10}%`}}></div></div>
