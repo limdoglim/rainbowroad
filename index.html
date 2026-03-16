@@ -29,6 +29,10 @@
     .floating { animation: float 3s ease-in-out infinite; }
     .merchant-float { animation: float 4s ease-in-out infinite alternate-reverse; }
     @keyframes wag { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
+    @keyframes waveLeft { 0% { transform: rotate(-30deg) translateY(0); } 100% { transform: rotate(-50deg) translateY(-5px); } }
+    @keyframes waveRight { 0% { transform: rotate(30deg) translateY(0); } 100% { transform: rotate(50deg) translateY(-5px); } }
+    .wave-left { animation: waveLeft 0.3s ease-in-out infinite alternate; transform-origin: 15px 70px; }
+    .wave-right { animation: waveRight 0.3s ease-in-out infinite alternate; transform-origin: 85px 70px; }
     .cloud-platform {
       background: radial-gradient(circle, #ffffff 40%, #f0f8ff 100%);
       box-shadow: 0 20px 50px rgba(0,0,0,0.1);
@@ -212,8 +216,8 @@
           {/* 2. 팔 */}
           {isSliding ? (
             <>
-              <rect x="0" y="65" width="35" height="12" rx="6" fill="url(#legShade)" filter="url(#dropShadow)" transform="rotate(-30 15 70)" />
-              <rect x="65" y="65" width="35" height="12" rx="6" fill="url(#legShade)" filter="url(#dropShadow)" transform="rotate(30 85 70)" />
+              <rect x="0" y="65" width="35" height="12" rx="6" fill="url(#legShade)" filter="url(#dropShadow)" className="wave-left" />
+              <rect x="65" y="65" width="35" height="12" rx="6" fill="url(#legShade)" filter="url(#dropShadow)" className="wave-right" />
             </>
           ) : (
             <>
@@ -781,7 +785,7 @@
 
           {showShop && (
             <div className="absolute inset-0 bg-black/40 z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => { setShowShop(false); playSfx('click'); }}>
-              <div className="bg-white rounded-3xl p-6 md:p-8 max-w-3xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto">
+              <div className="bg-white rounded-3xl p-6 md:p-8 max-w-3xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <button onClick={() => { setShowShop(false); playSfx('click'); }} className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-3xl font-bold">&times;</button>
                 <h2 className="text-3xl font-extrabold text-center mb-2 text-pink-500">구름 섬 잡화점 ☁️</h2>
                 <p className="text-center text-gray-500 mb-6 font-bold">"예쁜 물건을 구경하세요! 보석으로 교환해 드려요."</p>
