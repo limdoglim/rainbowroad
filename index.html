@@ -608,7 +608,14 @@
         const savedInv = localStorage.getItem('rainbow_island_inventory_v3');
         const savedPurchased = localStorage.getItem('rainbow_island_purchased_v3');
         if (savedInv) try { setInventory(JSON.parse(savedInv)); } catch (e) {}
-        if (savedPurchased) try { setPurchasedItems(JSON.parse(savedPurchased)); } catch (e) {}
+        if (savedPurchased) try { 
+          const parsed = JSON.parse(savedPurchased);
+          setPurchasedItems({
+             hats: parsed.hats || [0],
+             hands: parsed.hands || [0],
+             catClothes: parsed.catClothes || [0]
+          });
+        } catch (e) {}
         const savedCat = localStorage.getItem('rainbow_island_cat');
         if (savedCat) try { setCatStats(JSON.parse(savedCat)); } catch (e) {}
         const savedFoods = localStorage.getItem('rainbow_island_foods');
