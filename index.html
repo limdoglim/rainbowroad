@@ -28,6 +28,7 @@
     }
     .floating { animation: float 3s ease-in-out infinite; }
     .merchant-float { animation: float 4s ease-in-out infinite alternate-reverse; }
+    @keyframes wag { 0% { transform: rotate(-10deg); } 100% { transform: rotate(10deg); } }
     .cloud-platform {
       background: radial-gradient(circle, #ffffff 40%, #f0f8ff 100%);
       box-shadow: 0 20px 50px rgba(0,0,0,0.1);
@@ -142,7 +143,20 @@
       { type: 'handStyle', id: 37, name: '수제 버거', price: 5, currency: 'topaz', desc: '특별한 🍔 아이템' },
       { type: 'handStyle', id: 38, name: '조각 피자', price: 6, currency: 'sapphire', desc: '특별한 🍕 아이템' },
       { type: 'handStyle', id: 39, name: '초코 도넛', price: 7, currency: 'ruby', desc: '특별한 🍩 아이템' },
+
+      { type: 'catFood', id: 40, name: '다이아 생선', price: 2, currency: 'diamond', desc: '고양이가 제일 좋아하는 최고급 생선 (+1 포만감)' },
+      { type: 'catFood', id: 41, name: '사파이어 츄르', price: 5, currency: 'sapphire', desc: '부드러운 사파이어맛 간식 (+1 포만감)' },
+      { type: 'catFood', id: 42, name: '에메랄드 캣닢', price: 3, currency: 'emerald', desc: '기분까지 좋아지는 신선한 캣닢 (+1 포만감)' },
+      { type: 'catFood', id: 43, name: '토파즈 참치캔', price: 4, currency: 'topaz', desc: '영양 만점 바다 참치 (+1 포만감)' },
+      { type: 'catFood', id: 44, name: '루비 닭가슴살', price: 6, currency: 'ruby', desc: '단백질 듬뿍 건조 닭가슴살 (+1 포만감)' },
+      
+      { type: 'catClothes', id: 40, name: '핑크 리본옷', price: 10, currency: 'ruby', desc: '고양이를 위한 귀여운 핑크 옷' },
+      { type: 'catClothes', id: 41, name: '블루 마린룩', price: 8, currency: 'sapphire', desc: '고양이를 위한 시원한 마린룩' },
+      { type: 'catClothes', id: 42, name: '그린 망토', price: 5, currency: 'emerald', desc: '고양이를 위한 산뜻한 망토' },
+      { type: 'catClothes', id: 43, name: '골드 조끼', price: 6, currency: 'topaz', desc: '고양이를 위한 부티나는 조끼' },
+      { type: 'catClothes', id: 44, name: '퍼플 스웨터', price: 4, currency: 'diamond', desc: '고양이를 위한 따뜻한 스웨터' },
     ];
+
 
     // --- 캐릭터 컴포넌트 ---
     const Character = ({ outfit, scale = 1, isSliding = false }) => {
@@ -158,6 +172,20 @@
 
       return (
         <svg width={100 * scale} height={150 * scale} viewBox="0 0 100 150" style={{ transform, transition: 'transform 0.3s', overflow: 'visible' }}>
+          <defs>
+            <radialGradient id="faceShade" cx="50%" cy="50%" r="50%">
+              <stop offset="60%" stopColor="#FFE0BD" />
+              <stop offset="100%" stopColor="#E6C29E" />
+            </radialGradient>
+            <linearGradient id="legShade" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#E6C29E" />
+              <stop offset="50%" stopColor="#FFE0BD" />
+              <stop offset="100%" stopColor="#E6C29E" />
+            </linearGradient>
+            <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+               <feDropShadow dx="0" dy="2" stdDeviation="2" floodOpacity="0.3" />
+            </filter>
+          </defs>
           
           {/* 1. 뒷머리 */}
           <g fill={hairColor}>
@@ -193,7 +221,7 @@
           
           {/* 3. 몸통 의상 */}
           <g>
-            {shirtType === 0 && <rect x="25" y="65" width="50" height="45" rx="15" fill={shirtColor} />}
+            {shirtType === 0 && <rect x="25" y="65" width="50" height="45" rx="15" fill={shirtColor} filter="url(#dropShadow)" />}
             {shirtType === 1 && <path d="M25 65 L75 65 L85 115 L15 115 Z" fill={shirtColor} rx="5" />}
             {shirtType === 2 && <rect x="30" y="65" width="40" height="40" rx="10" fill={shirtColor} />}
             {shirtPattern === 1 && <rect x={shirtType===2?30:25} y="85" width={shirtType===2?40:50} height="5" fill="#FFF" opacity="0.5" />}
@@ -203,14 +231,14 @@
           </g>
 
           {/* 4. 피부 및 이목구비 */}
-          <circle cx="50" cy="40" r="22" fill="#FFE0BD" />
+          <circle cx="50" cy="40" r="22" fill="url(#faceShade)" />
           
           {/* 표정 */}
           {faceStyle === 0 && (
-            <><circle cx="42" cy="38" r="3" fill="#333" /><circle cx="58" cy="38" r="3" fill="#333" /><path d="M45 48 Q50 52 55 48" stroke="#333" strokeWidth="2" fill="transparent" /></>
+            <><circle cx="42" cy="38" r=" 4 " fill="#333" /><circle cx="58" cy="38" r=" 4 " fill="#333" /><path d="M45 48 Q50 52 55 48" stroke="#333" strokeWidth="2" fill="transparent" /></>
           )}
           {faceStyle === 1 && (
-            <><path d="M39 38 Q42 35 45 38" stroke="#333" strokeWidth="2" fill="transparent" /><circle cx="58" cy="38" r="3" fill="#333" /><path d="M45 48 Q50 52 55 48" stroke="#333" strokeWidth="2" fill="transparent" /></>
+            <><path d="M39 38 Q42 35 45 38" stroke="#333" strokeWidth="2" fill="transparent" /><circle cx="58" cy="38" r=" 4 " fill="#333" /><path d="M45 48 Q50 52 55 48" stroke="#333" strokeWidth="2" fill="transparent" /></>
           )}
           {faceStyle === 2 && (
             <><path d="M39 38 Q42 35 45 38" stroke="#333" strokeWidth="2" fill="transparent" /><path d="M55 38 Q58 35 61 38" stroke="#333" strokeWidth="2" fill="transparent" /><path d="M45 47 Q50 52 55 47 Z" fill="#FF69B4" /></>
@@ -222,14 +250,14 @@
             <><circle cx="42" cy="39" r="3" fill="#333" /><circle cx="58" cy="39" r="3" fill="#333" /><circle cx="42" cy="43" r="1.5" fill="#00BFFF" /><circle cx="58" cy="43" r="1.5" fill="#00BFFF" /><path d="M45 50 Q50 47 55 50" stroke="#333" strokeWidth="2" fill="transparent" /></>
           )}
           {faceStyle === 5 && (
-            <><path d="M39 38 L45 38 M39 35 L45 41 M39 41 L45 35" stroke="#333" strokeWidth="2" /><circle cx="58" cy="38" r="3" fill="#333" /><path d="M45 48 L55 48" stroke="#333" strokeWidth="2" /><path d="M47 48 V 52 Q 50 55 53 52 V 48 Z" fill="#FF1493" /></>
+            <><path d="M39 38 L45 38 M39 35 L45 41 M39 41 L45 35" stroke="#333" strokeWidth="2" /><circle cx="58" cy="38" r=" 4 " fill="#333" /><path d="M45 48 L55 48" stroke="#333" strokeWidth="2" /><path d="M47 48 V 52 Q 50 55 53 52 V 48 Z" fill="#FF1493" /></>
           )}
           <circle cx="38" cy="43" r="4" fill="#FF69B4" opacity="0.3" />
           <circle cx="62" cy="43" r="4" fill="#FF69B4" opacity="0.3" />
           
           {/* 5. 다리 */}
-          <rect x="35" y="105" width="10" height="30" fill="#FFE0BD" />
-          <rect x="55" y="105" width="10" height="30" fill="#FFE0BD" />
+          <rect x="35" y="105" width="10" height="30" fill="url(#legShade)" />
+          <rect x="55" y="105" width="10" height="30" fill="url(#legShade)" />
           
           {/* 6. 신발 */}
           <g fill={shoesColor}>
@@ -243,18 +271,18 @@
           </g>
 
           {/* 7. 앞머리 */}
-          <path d="M 28 40 A 22 22 0 0 1 72 40 Z" fill={hairColor} />
+          <path d="M 28 28 A 22 20 0 0 1 72 28 Z" fill={hairColor} />
           <g fill={hairColor}>
-            {hairTexture === 0 && <path d="M28 40 Q50 20 72 40 Q50 30 28 40 Z" />}
-            {hairTexture === 1 && <path d="M25 45 Q35 30 50 40 Q65 30 75 45 Q50 20 25 45 Z" />}
-            {hairTexture === 2 && <path d="M28 40 L40 30 L50 45 L60 30 L72 40 Z" />}
-            {hairTexture === 3 && <path d="M28 45 Q50 10 72 45 Q50 25 28 45 Z" />}
-            {hairTexture === 4 && <path d="M28 40 L35 25 L45 35 L55 20 L65 35 L72 40 Z" />}
+            {hairTexture === 0 && <path d="M28 28 Q50 10 72 28 Q50 20 28 28 Z" />}
+            {hairTexture === 1 && <path d="M25 30 Q35 15 50 25 Q65 15 75 30 Q50 5 25 30 Z" />}
+            {hairTexture === 2 && <path d="M28 28 L40 18 L50 30 L60 18 L72 28 Z" />}
+            {hairTexture === 3 && <path d="M28 30 Q50 0 72 30 Q50 15 28 30 Z" />}
+            {hairTexture === 4 && <path d="M28 28 L35 15 L45 25 L55 10 L65 25 L72 28 Z" />}
           </g>
 
           {/* 8. 모자 및 머리장식 */}
           {hatStyle > 0 && (
-            <g fill={hatColor}>
+            <g fill={hatColor} filter="url(#dropShadow)">
               {hatStyle === 1 && <path d="M25 25 Q50 10 75 25 L85 25 L85 28 L25 28 Z" />}
               {hatStyle === 2 && <path d="M30 25 Q50 0 70 25 Z" />}
               {hatStyle === 3 && <path d="M35 20 L35 5 L45 12 L50 2 L55 12 L65 5 L65 20 Z" fill="#FFD700"/>}
@@ -277,13 +305,121 @@
           {handStyle > 0 && (
             <g transform={isSliding ? "translate(70, 65) rotate(45)" : "translate(79, 100)"}>
               {handStyle === 1 && ( <><rect x="-2" y="-15" width="4" height="25" fill="#CD853F" /><polygon points="0,-25 5,-15 15,-15 7,-8 10,2 0,-3 -10,2 -7,-8 -15,-15 -5,-15" fill="#FFD700" /></> )}
-              {handStyle === 2 && ( <><path d="M0,0 Q5,-15 0,-30" stroke="#FFF" fill="none" /><circle cx="0" cy="-40" r="15" fill={handColor} /><polygon points="0,-25 -3,-20 3,-20" fill={handColor} /></> )}
+              {handStyle === 2 && ( <><path d="M0,0 Q5,-15 0,-30" stroke="#FFF" fill="none" /><circle cx="0" cy="-40" r="15" fill={handColor}  filter="url(#dropShadow)" /><polygon points="0,-25 -3,-20 3,-20" fill={handColor} /></> )}
               {handStyle === 3 && ( <><rect x="-1" y="-15" width="2" height="15" fill="#228B22" /><circle cx="0" cy="-15" r="5" fill="#FFD700" /><circle cx="-6" cy="-20" r="5" fill={handColor} /><circle cx="6" cy="-20" r="5" fill={handColor} /><circle cx="-6" cy="-10" r="5" fill={handColor} /><circle cx="6" cy="-10" r="5" fill={handColor} /></> )}
               {handStyle === 4 && ( <><rect x="-2" y="-15" width="4" height="20" fill="#FFF" /><circle cx="0" cy="-20" r="10" fill={handColor} /><circle cx="0" cy="-20" r="6" fill="#FFF" opacity="0.5" /></> )}
               {handStyle === 5 && ( <><rect x="-6" y="-10" width="12" height="16" fill={handColor} rx="2" /><rect x="-4" y="-8" width="8" height="12" fill="#FFF" /><line x1="-2" y1="-5" x2="2" y2="-5" stroke="#333" strokeWidth="1" /><line x1="-2" y1="-1" x2="2" y2="-1" stroke="#333" strokeWidth="1" /></> )}
             </g>
           )}
         </svg>
+      );
+    };
+
+    
+    const Cat = ({ hunger, happiness, outfit, isHappy }) => {
+      // Determines face based on stats
+      let face = 'normal';
+      if (hunger >= 8 && happiness >= 8) face = 'happy';
+      else if (hunger <= 3 || happiness <= 3) face = 'sad';
+
+      // Advanced SVG Cat
+      return (
+        <div className="relative inline-block mt-4 transition-transform hover:scale-105 active:scale-95 cursor-pointer" style={{ transformOrigin: 'bottom center' }}>
+          {isHappy && (
+            <div className="absolute -top-10 left-0 w-full flex justify-center gap-2 pointer-events-none z-50 animate-bounce">
+              <span className="text-pink-500 text-2xl animate-pulse">💖</span>
+              <span className="text-red-400 text-xl animate-pulse delay-75">💕</span>
+              <span className="text-pink-400 text-2xl animate-pulse delay-150">💗</span>
+            </div>
+          )}
+          <svg width="120" height="120" viewBox="0 0 100 100" className="drop-shadow-xl" style={{ animation: isHappy ? 'float 1s ease-in-out infinite alternate' : 'none' }}>
+            <defs>
+              <linearGradient id="catBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#fff" />
+                <stop offset="100%" stopColor="#f0e6d2" />
+              </linearGradient>
+              <linearGradient id="catEar" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#ffb6c1" />
+                <stop offset="100%" stopColor="#ff69b4" />
+              </linearGradient>
+            </defs>
+
+            {/* 꼬리 (움직임) */}
+            <g style={{ transformOrigin: '20px 80px', animation: isHappy ? 'wag 0.5s infinite alternate' : 'wag 2s infinite alternate' }}>
+              <path d="M 25 75 Q 5 70 10 50 Q 15 30 25 45" fill="none" stroke="url(#catBody)" strokeWidth="8" strokeLinecap="round" />
+            </g>
+
+            {/* 몸통 */}
+            <ellipse cx="50" cy="70" rx="30" ry="25" fill="url(#catBody)" />
+            {/* 뒷다리 */}
+            <ellipse cx="30" cy="90" rx="8" ry="6" fill="#eaddcf" />
+            <ellipse cx="70" cy="90" rx="8" ry="6" fill="#eaddcf" />
+
+            {/* 옷 (오버레이) */}
+            {outfit > 0 && (
+              <g>
+                {outfit === 40 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#FF1493" opacity="0.9" />}
+                {outfit === 41 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#4169E1" opacity="0.9" />}
+                {outfit === 42 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#32CD32" opacity="0.9" />}
+                {outfit === 43 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#FFD700" opacity="0.9" />}
+                {outfit === 44 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#8A2BE2" opacity="0.9" />}
+                {/* 옷의 줄무늬나 장식 */}
+                {outfit >= 40 && <path d="M 35 60 V 85 M 65 60 V 85 M 50 55 V 90" stroke="#fff" strokeWidth="2" opacity="0.5" />}
+              </g>
+            )}
+
+            {/* 앞다리 */}
+            <rect x="38" y="70" width="8" height="20" rx="4" fill="#fff" />
+            <rect x="54" y="70" width="8" height="20" rx="4" fill="#fff" />
+
+            {/* 귀 */}
+            <polygon points="30,45 20,15 45,30" fill="url(#catBody)" />
+            <polygon points="32,40 25,22 42,32" fill="url(#catEar)" />
+            
+            <polygon points="70,45 80,15 55,30" fill="url(#catBody)" />
+            <polygon points="68,40 75,22 58,32" fill="url(#catEar)" />
+
+            {/* 머리 */}
+            <circle cx="50" cy="45" r="25" fill="url(#catBody)" />
+
+            {/* 수염 */}
+            <path d="M 20 45 L 5 40 M 20 50 L 5 50 M 20 55 L 5 60" stroke="#ccc" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M 80 45 L 95 40 M 80 50 L 95 50 M 80 55 L 95 60" stroke="#ccc" strokeWidth="1.5" strokeLinecap="round" />
+
+            {/* 얼굴 표정 */}
+            {face === 'happy' && (
+              <g>
+                <path d="M 35 43 Q 40 38 45 43" stroke="#333" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                <path d="M 55 43 Q 60 38 65 43" stroke="#333" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                <path d="M 45 52 Q 50 58 55 52 V 48 Q 50 52 45 48 Z" fill="#FF69B4" />
+                <circle cx="35" cy="48" r="4" fill="#FFB6C1" opacity="0.6" />
+                <circle cx="65" cy="48" r="4" fill="#FFB6C1" opacity="0.6" />
+              </g>
+            )}
+            
+            {face === 'normal' && (
+              <g>
+                <circle cx="40" cy="42" r="3.5" fill="#333" />
+                <circle cx="60" cy="42" r="3.5" fill="#333" />
+                <path d="M 48 50 Q 50 53 52 50" stroke="#333" strokeWidth="2" fill="none" strokeLinecap="round" />
+              </g>
+            )}
+
+            {face === 'sad' && (
+              <g>
+                <path d="M 35 40 Q 40 45 45 43" stroke="#333" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                <path d="M 55 43 Q 60 45 65 40" stroke="#333" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                <circle cx="40" cy="48" r="2" fill="#00BFFF" opacity="0.8" />
+                <circle cx="60" cy="48" r="2" fill="#00BFFF" opacity="0.8" />
+                <path d="M 45 53 Q 50 49 55 53" stroke="#333" strokeWidth="2" fill="none" strokeLinecap="round" />
+              </g>
+            )}
+
+            {/* 코 */}
+            <polygon points="48,46 52,46 50,49" fill="#FF69B4" />
+
+          </svg>
+        </div>
       );
     };
 
@@ -322,7 +458,9 @@
       const [inventory, setInventory] = useState({ ruby: 10, sapphire: 5, emerald: 5, topaz: 5, diamond: 2 });
       const [showInventory, setShowInventory] = useState(false);
       const [showShop, setShowShop] = useState(false);
-      const [purchasedItems, setPurchasedItems] = useState({ hats: [0], hands: [0] });
+      const [purchasedItems, setPurchasedItems] = useState({ hats: [0], hands: [0], catClothes: [0] });
+      const [ownedFoods, setOwnedFoods] = useState({ 40: 0, 41: 0, 42: 0, 43: 0, 44: 0 });
+      const [catStats, setCatStats] = useState({ hunger: 5, happiness: 5, outfit: 0 });
       const [showStylePopup, setShowStylePopup] = useState(null);
 
       const [outfit, setOutfit] = useState({
@@ -426,6 +564,11 @@
         let options = [];
         if (isColor) {
            options = styleOptions.colors.map((c, i) => ({ value: i, color: c }));
+        } else if (part === 'feed') {
+           options = countOrArray.map(id => {
+              const info = SHOP_ITEMS.find(i => i.id === parseInt(id));
+              return { value: id, label: info ? `${info.name.split(' ')[1]} (${ownedFoods[id]}개)` : '먹이' };
+           });
         } else if (Array.isArray(countOrArray)) {
            options = countOrArray.map(id => {
               let label = id === 0 ? '기본' : id;
@@ -460,12 +603,18 @@
         const savedPurchased = localStorage.getItem('rainbow_island_purchased_v3');
         if (savedInv) try { setInventory(JSON.parse(savedInv)); } catch (e) {}
         if (savedPurchased) try { setPurchasedItems(JSON.parse(savedPurchased)); } catch (e) {}
+        const savedCat = localStorage.getItem('rainbow_island_cat');
+        if (savedCat) try { setCatStats(JSON.parse(savedCat)); } catch (e) {}
+        const savedFoods = localStorage.getItem('rainbow_island_foods');
+        if (savedFoods) try { setOwnedFoods(JSON.parse(savedFoods)); } catch (e) {}
       }, []);
 
       useEffect(() => {
         localStorage.setItem('rainbow_island_inventory_v3', JSON.stringify(inventory));
         localStorage.setItem('rainbow_island_purchased_v3', JSON.stringify(purchasedItems));
-      }, [inventory, purchasedItems]);
+        localStorage.setItem('rainbow_island_cat', JSON.stringify(catStats));
+        localStorage.setItem('rainbow_island_foods', JSON.stringify(ownedFoods));
+      }, [inventory, purchasedItems, catStats, ownedFoods]);
 
       useEffect(() => {
         let timer;
@@ -473,6 +622,45 @@
         else if (scene === 'SLIDE_OUT') timer = setTimeout(() => { setScene('HOME'); setTreeStatus('EMPTY'); }, 4000);
         return () => clearTimeout(timer);
       }, [scene]);
+
+      useEffect(() => {
+        const catTimer = setInterval(() => {
+          setCatStats(prev => ({
+            ...prev,
+            hunger: Math.max(0, prev.hunger - 1),
+            happiness: Math.max(0, prev.happiness - 1)
+          }));
+        }, 60000);
+        return () => clearInterval(catTimer);
+      }, []);
+
+      const buyFood = (foodItem) => {
+        if (inventory[foodItem.currency] >= foodItem.price) {
+          playSfx('buy');
+          setInventory(prev => ({ ...prev, [foodItem.currency]: prev[foodItem.currency] - foodItem.price }));
+          setOwnedFoods(prev => ({ ...prev, [foodItem.id]: (prev[foodItem.id] || 0) + 1 }));
+        } else {
+          playSfx('click');
+          alert(`${foodItem.currency} 보석이 부족합니다!`);
+        }
+      };
+
+      const useFood = (foodId) => {
+        if (ownedFoods[foodId] > 0) {
+          playSfx('click');
+          setOwnedFoods(prev => ({ ...prev, [foodId]: prev[foodId] - 1 }));
+          setCatStats(prev => ({ ...prev, hunger: Math.min(10, prev.hunger + 1) }));
+          setShowStylePopup(null);
+        }
+        else {
+           alert("해당 먹이가 부족합니다. 구름 섬 상점에서 구매해 오세요!");
+        }
+      };
+
+      const petCat = () => {
+        playSfx('click');
+        setCatStats(prev => ({ ...prev, happiness: Math.min(10, prev.happiness + 1) }));
+      };
 
       const handleWaterTree = () => {
         if (treeStatus !== 'EMPTY') return;
@@ -515,12 +703,12 @@
       };
 
       const handlePurchase = (item) => {
-        if (purchasedItems[item.type === 'hatStyle' ? 'hats' : 'hands'].includes(item.id)) return;
+        const catMap = item.type === 'hatStyle' ? 'hats' : item.type === 'catClothes' ? 'catClothes' : 'hands'; if (purchasedItems[catMap] && purchasedItems[catMap].includes(item.id)) return;
         if (inventory[item.currency] >= item.price) {
           playSfx('buy');
           setInventory(prev => ({ ...prev, [item.currency]: prev[item.currency] - item.price }));
           setPurchasedItems(prev => {
-            const category = item.type === 'hatStyle' ? 'hats' : 'hands';
+            const category = item.type === 'hatStyle' ? 'hats' : item.type === 'catClothes' ? 'catClothes' : 'hands';
             return { ...prev, [category]: [...prev[category], item.id] };
           });
         } else {
@@ -586,7 +774,7 @@
                 <p className="text-center text-gray-500 mb-6 font-bold">"예쁜 물건을 구경하세요! 보석으로 교환해 드려요."</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {SHOP_ITEMS.map((item, idx) => {
-                    const isOwned = purchasedItems[item.type === 'hatStyle' ? 'hats' : 'hands'].includes(item.id);
+                    const isOwned = item.type !== 'catFood' && purchasedItems[item.type === 'catClothes' ? 'catClothes' : item.type === 'hatStyle' ? 'hats' : 'hands']?.includes(item.id);
                     const CurrencyIcon = GemIcons[item.currency];
                     const canAfford = inventory[item.currency] >= item.price;
                     return (
@@ -598,7 +786,7 @@
                         {isOwned ? (
                           <div className="px-4 py-2 bg-gray-200 text-gray-500 font-bold rounded-xl">보유중</div>
                         ) : (
-                          <button onClick={() => handlePurchase(item)} className={`flex items-center gap-2 px-4 py-2 font-bold rounded-xl shadow transition ${canAfford ? 'bg-pink-400 hover:bg-pink-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
+                          <button onClick={() => item.type === 'catFood' ? buyFood(item) : handlePurchase(item)} className={`flex items-center gap-2 px-4 py-2 font-bold rounded-xl shadow transition ${canAfford ? 'bg-pink-400 hover:bg-pink-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
                             {item.price} <CurrencyIcon size={5} />
                           </button>
                         )}
@@ -623,7 +811,14 @@
                       key={idx}
                       onClick={() => {
                          playSfx('click');
-                         setOutfit(prev => ({ ...prev, [showStylePopup.part]: opt.value }));
+                         if (showStylePopup.part === 'feed') {
+                            useFood(opt.value);
+                            return;
+                         } else if (showStylePopup.part === 'outfit') {
+                            setCatStats(prev => ({ ...prev, outfit: opt.value }));
+                         } else {
+                            setOutfit(prev => ({ ...prev, [showStylePopup.part]: opt.value }));
+                         }
                          setShowStylePopup(null);
                       }}
                       className={`h-14 rounded-2xl flex items-center justify-center text-2xl shadow-sm border-2 transition hover:scale-110 active:scale-95 flex-shrink-0 ${outfit[showStylePopup.part] === opt.value ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200' : 'border-gray-200 bg-gray-50 hover:border-indigo-300'}`}
@@ -642,8 +837,34 @@
             <div className="w-full h-full flex flex-col items-center justify-center relative z-10 px-4">
               <h1 className="text-5xl font-extrabold text-white drop-shadow-md mb-8 tracking-wider">무지개 구름 섬</h1>
               <div className="bg-white/50 p-6 md:p-8 rounded-3xl shadow-2xl flex flex-col lg:flex-row items-center gap-8 backdrop-blur-md border border-white/60 w-full max-w-5xl">
-                <div className="flex-shrink-0 bg-white/70 p-6 rounded-2xl shadow-inner floating relative">
-                  <Character outfit={getRenderOutfit()} scale={1.8} />
+                <div className="flex flex-col gap-4">
+                  <div className="flex-shrink-0 bg-white/70 p-6 rounded-2xl shadow-inner floating relative flex justify-center items-center">
+                    <Character outfit={getRenderOutfit()} scale={1.8} />
+                  </div>
+                  
+                  {/* 패밀리 펫 고양이 영역 */}
+                  <div className="bg-white/90 p-4 rounded-3xl shadow-lg border-2 border-pink-200 flex flex-col items-center relative">
+                    <h3 className="text-lg font-bold text-gray-700 absolute top-2 left-4">내 고양이 🐾</h3>
+                    <div className="flex gap-4 mt-8 mb-2 w-full px-4 text-sm font-bold text-gray-600 justify-between">
+                       <div className="flex flex-col items-center">
+                         <span>🍖 배고픔: {catStats.hunger}/10</span>
+                         <div className="w-24 bg-gray-200 h-2 rounded-full overflow-hidden mt-1"><div className="bg-orange-400 h-full" style={{width: `${catStats.hunger*10}%`}}></div></div>
+                       </div>
+                       <div className="flex flex-col items-center">
+                         <span>💖 행복도: {catStats.happiness}/10</span>
+                         <div className="w-24 bg-gray-200 h-2 rounded-full overflow-hidden mt-1"><div className="bg-pink-400 h-full" style={{width: `${catStats.happiness*10}%`}}></div></div>
+                       </div>
+                    </div>
+                    
+                    <div onClick={petCat} title="고양이를 쓰다듬어 행복도를 올려주세요!">
+                       <Cat hunger={catStats.hunger} happiness={catStats.happiness} outfit={catStats.outfit} isHappy={catStats.hunger >= 8 && catStats.happiness >= 8} />
+                    </div>
+
+                    <div className="flex gap-2 mt-4 mt-2">
+                      <button onClick={() => openPopup('feed', '먹이 주기', Object.keys(ownedFoods))} className="px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-white rounded-xl font-bold shadow-sm text-xs">먹이 주기</button>
+                      <button onClick={() => openPopup('outfit', '고양이 옷', purchasedItems.catClothes)} className="px-3 py-1.5 bg-purple-400 hover:bg-purple-500 text-white rounded-xl font-bold shadow-sm text-xs border border-purple-500">옷 갈아입히기</button>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex-grow flex flex-col gap-5 w-full">
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
