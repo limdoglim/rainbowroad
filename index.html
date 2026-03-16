@@ -641,7 +641,7 @@
           setOwnedFoods(prev => ({ ...prev, [foodItem.id]: (prev[foodItem.id] || 0) + 1 }));
         } else {
           playSfx('click');
-          alert(`${foodItem.currency} 보석이 부족합니다!`);
+          setTimeout(() => alert(`${foodItem.currency} 보석이 부족합니다!`);, 50);
         }
       };
 
@@ -653,7 +653,7 @@
           setShowStylePopup(null);
         }
         else {
-           alert("해당 먹이가 부족합니다. 구름 섬 상점에서 구매해 오세요!");
+           setTimeout(() => alert("해당 먹이가 부족합니다. 구름 섬 상점에서 구매해 오세요!"), 50);
         }
       };
 
@@ -713,7 +713,7 @@
           });
         } else {
           playSfx('click');
-          alert(`${item.currency} 보석이 부족합니다! 나무를 키워 모아오세요.`);
+          setTimeout(() => alert(`${item.currency} 보석이 부족합니다! 나무를 키워 모아오세요.`);, 50);
         }
       };
 
