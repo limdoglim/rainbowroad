@@ -926,8 +926,11 @@
             <div className="w-full h-full flex flex-col items-center justify-center relative bg-gradient-to-b from-sky-300 to-blue-200 transition-colors duration-1000">
               <div className="absolute inset-0 z-0 pointer-events-none">{renderCloudEffects()}</div>
               <div className={`absolute w-[300%] h-80 rainbow-slide shadow-[0_20px_50px_rgba(255,105,180,0.3)] z-10 ${scene === 'SLIDE_IN' ? 'rotate-45' : '-rotate-45 -scale-x-100'}`}></div>
-              <div className="z-20 floating drop-shadow-2xl">
+              <div className="z-20 floating drop-shadow-2xl flex items-end gap-12">
                 <Character outfit={getRenderOutfit()} scale={2.2} isSliding={true} />
+                <div className="transform -translate-y-16 animate-pulse">
+                  <Cat hunger={catStats.hunger} happiness={catStats.happiness} outfit={catStats.outfit} isHappy={true} />
+                </div>
               </div>
               <h2 className="absolute bottom-24 text-4xl font-extrabold text-white drop-shadow-[0_4px_4px_rgba(0,100,200,0.4)] z-30 tracking-widest animate-bounce px-6 py-2 bg-white/20 rounded-full backdrop-blur-sm border border-white/50">
                 {scene === 'SLIDE_IN' ? '무지개 다리를 타고 날아가는 중~ ☁️' : '무지개 미끄럼틀로 돌아가는 중~ 🌈'}
@@ -961,8 +964,11 @@
                 </div>
               </div>
 
-              <div className="absolute bottom-48 left-[10%] md:left-[20%] z-20">
+              <div className="absolute bottom-48 left-[10%] md:left-[20%] z-20 flex items-end gap-6">
                  <Character outfit={getRenderOutfit()} scale={1.2} />
+                 <div className="pb-4 transform animate-bounce">
+                    <Cat hunger={catStats.hunger} happiness={catStats.happiness} outfit={catStats.outfit} isHappy={catStats.hunger >= 8 && catStats.happiness >= 8} />
+                 </div>
               </div>
 
               <div className="absolute bottom-52 right-[10%] md:right-[20%] z-20 flex flex-col items-center merchant-float">
