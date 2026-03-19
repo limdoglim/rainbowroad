@@ -368,13 +368,53 @@
             {/* 옷 (오버레이) */}
             {outfit > 0 && (
               <g>
-                {outfit === 40 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#FF1493" opacity="0.9" />}
-                {outfit === 41 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#4169E1" opacity="0.9" />}
-                {outfit === 42 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#32CD32" opacity="0.9" />}
-                {outfit === 43 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#FFD700" opacity="0.9" />}
-                {outfit === 44 && <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#8A2BE2" opacity="0.9" />}
-                {/* 옷의 줄무늬나 장식 */}
-                {outfit >= 40 && <path d="M 35 60 V 85 M 65 60 V 85 M 50 55 V 90" stroke="#fff" strokeWidth="2" opacity="0.5" />}
+                {/* 40: 핑크 리본옷 - 핑크 드레스 + 나비 리본 장식 */}
+                {outfit === 40 && <g>
+                  <path d="M 22 62 Q 50 44 78 62 L 73 88 Q 50 98 27 88 Z" fill="#FF69B4" opacity="0.92" />
+                  <path d="M 27 70 Q 50 66 73 70 Q 50 68 27 70 Z" fill="#FFB6C1" opacity="0.6" />
+                  <path d="M 28 79 Q 50 75 72 79 Q 50 77 28 79 Z" fill="#FFB6C1" opacity="0.6" />
+                  <polygon points="44,58 50,64 44,70" fill="#FF1493" opacity="0.95" />
+                  <polygon points="56,58 50,64 56,70" fill="#FF1493" opacity="0.95" />
+                  <circle cx="50" cy="64" r="3.5" fill="#FF1493" />
+                  <path d="M 32 60 Q 36 55 40 60 Q 43 55 46 60 Q 50 55 54 60 Q 57 55 60 60 Q 64 55 68 60" fill="none" stroke="#FFB6C1" strokeWidth="2" opacity="0.9" />
+                </g>}
+                {/* 41: 블루 마린룩 - 파란 상의 + 흰 세일러 칼라 + 줄무늬 */}
+                {outfit === 41 && <g>
+                  <path d="M 25 60 Q 50 45 75 60 L 70 85 Q 50 95 30 85 Z" fill="#1E5FAD" opacity="0.92" />
+                  <path d="M 28 68 Q 50 64 72 68" stroke="#FFF" strokeWidth="3.5" fill="none" strokeLinecap="round" opacity="0.85" />
+                  <path d="M 29 77 Q 50 73 71 77" stroke="#FFF" strokeWidth="3.5" fill="none" strokeLinecap="round" opacity="0.85" />
+                  <path d="M 36 57 L 50 74 L 64 57 Q 50 46 36 57 Z" fill="#F0F8FF" opacity="0.9" />
+                  <path d="M 36 57 L 50 74 L 64 57" fill="none" stroke="#1E5FAD" strokeWidth="1" opacity="0.5" />
+                  <text x="50" y="87" fontSize="9" textAnchor="middle" fill="#FFD700" opacity="0.9">⚓</text>
+                </g>}
+                {/* 42: 그린 망토 - 망토 실루엣 + 황금 클라스프 */}
+                {outfit === 42 && <g>
+                  <path d="M 18 56 Q 50 42 82 56 L 92 100 Q 50 108 8 100 Z" fill="#228B22" opacity="0.85" />
+                  <path d="M 25 60 Q 50 48 75 60 L 72 88 Q 50 96 28 88 Z" fill="#32CD32" opacity="0.88" />
+                  <path d="M 34 56 Q 50 60 66 56" fill="none" stroke="#90EE90" strokeWidth="2" opacity="0.7" />
+                  <circle cx="50" cy="56" r="6" fill="#FFD700" opacity="0.95" />
+                  <circle cx="50" cy="56" r="4" fill="#FFA500" />
+                  <circle cx="50" cy="56" r="2" fill="#FFD700" />
+                </g>}
+                {/* 43: 골드 조끼 - V넥 두 패널 + 버튼 */}
+                {outfit === 43 && <g>
+                  <path d="M 25 60 Q 36 48 50 56 L 47 87 Q 36 92 28 86 Z" fill="#DAA520" opacity="0.93" />
+                  <path d="M 75 60 Q 64 48 50 56 L 53 87 Q 64 92 72 86 Z" fill="#DAA520" opacity="0.93" />
+                  <path d="M 36 57 Q 43 51 50 56 Q 57 51 64 57" fill="none" stroke="#FFD700" strokeWidth="1.5" opacity="0.7" />
+                  <circle cx="50" cy="65" r="2.5" fill="#8B6914" />
+                  <circle cx="50" cy="73" r="2.5" fill="#8B6914" />
+                  <circle cx="50" cy="81" r="2.5" fill="#8B6914" />
+                  <line x1="28" y1="60" x2="36" y2="58" stroke="#B8860B" strokeWidth="1.5" opacity="0.7" />
+                  <line x1="72" y1="60" x2="64" y2="58" stroke="#B8860B" strokeWidth="1.5" opacity="0.7" />
+                </g>}
+                {/* 44: 퍼플 스웨터 - 둥근 넥 + 뜨개 물결 무늬 */}
+                {outfit === 44 && <g>
+                  <path d="M 25 60 Q 50 45 75 60 L 70 86 Q 50 96 30 86 Z" fill="#7B2FBE" opacity="0.92" />
+                  <path d="M 36 57 Q 40 53 44 57 Q 47 53 50 57 Q 53 53 56 57 Q 60 53 64 57" fill="none" stroke="#9B59D6" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M 29 67 Q 33 63 37 67 Q 41 63 45 67 Q 49 63 53 67 Q 57 63 61 67 Q 65 63 69 67 Q 71 63 73 67" fill="none" stroke="#9B59D6" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
+                  <path d="M 28 76 Q 32 72 36 76 Q 40 72 44 76 Q 48 72 52 76 Q 56 72 60 76 Q 64 72 68 76 Q 71 72 73 76" fill="none" stroke="#9B59D6" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
+                  <path d="M 30 85 Q 34 81 38 85 Q 42 81 46 85 Q 50 81 54 85 Q 58 81 62 85 Q 66 81 70 85" fill="none" stroke="#9B59D6" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+                </g>}
               </g>
             )}
 
