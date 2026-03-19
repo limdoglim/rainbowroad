@@ -691,7 +691,7 @@
             hunger: Math.max(0, prev.hunger - 1),
             happiness: Math.max(0, prev.happiness - 1)
           }));
-        }, 30000);
+        }, 1800000);
         return () => clearInterval(catTimer);
       }, []);
 
@@ -953,32 +953,32 @@
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                     <div className="flex flex-col gap-2">
                        <span className="text-xs font-bold text-gray-700 text-center">헤어 (15종)</span>
-                       <button onClick={() => openPopup('hairStyle', '헤어 스타일', styleOptions.hairStyle)} className="py-2 bg-yellow-400 hover:bg-yellow-500 rounded-xl text-white font-bold shadow text-sm">스타일 고르기</button>
-                       <button onClick={() => openPopup('hairColor', '헤어 색상', null, true)} className="py-2 bg-yellow-100 hover:bg-yellow-200 rounded-xl text-yellow-800 font-bold shadow text-sm border border-yellow-300">색상 고르기</button>
+                       <button onClick={() => openPopup('hairStyle', '헤어 스타일', styleOptions.hairStyle)} className="py-2 bg-yellow-400 hover:bg-yellow-500 rounded-xl text-white font-bold shadow text-sm whitespace-nowrap">스타일 고르기</button>
+                       <button onClick={() => openPopup('hairColor', '헤어 색상', null, true)} className="py-2 bg-yellow-100 hover:bg-yellow-200 rounded-xl text-yellow-800 font-bold shadow text-sm border border-yellow-300 whitespace-nowrap">색상 고르기</button>
                     </div>
                     <div className="flex flex-col gap-2">
                        <span className="text-xs font-bold text-gray-700 text-center">표정 (6종)</span>
-                       <button onClick={() => openPopup('faceStyle', '얼굴 표정', styleOptions.faceStyle)} className="py-2 bg-green-400 hover:bg-green-500 rounded-xl text-white font-bold shadow text-sm h-full">표정 고르기</button>
+                       <button onClick={() => openPopup('faceStyle', '얼굴 표정', styleOptions.faceStyle)} className="py-2 bg-green-400 hover:bg-green-500 rounded-xl text-white font-bold shadow text-sm h-full whitespace-nowrap">표정 고르기</button>
                     </div>
                     <div className="flex flex-col gap-2">
                        <span className="text-xs font-bold text-gray-700 text-center">의상 (15종)</span>
-                       <button onClick={() => openPopup('shirtStyle', '의상 스타일', styleOptions.shirtStyle)} className="py-2 bg-blue-400 hover:bg-blue-500 rounded-xl text-white font-bold shadow text-sm">스타일 고르기</button>
-                       <button onClick={() => openPopup('shirtColor', '의상 색상', null, true)} className="py-2 bg-blue-100 hover:bg-blue-200 rounded-xl text-blue-800 font-bold shadow text-sm border border-blue-300">색상 고르기</button>
+                       <button onClick={() => openPopup('shirtStyle', '의상 스타일', styleOptions.shirtStyle)} className="py-2 bg-blue-400 hover:bg-blue-500 rounded-xl text-white font-bold shadow text-sm whitespace-nowrap">스타일 고르기</button>
+                       <button onClick={() => openPopup('shirtColor', '의상 색상', null, true)} className="py-2 bg-blue-100 hover:bg-blue-200 rounded-xl text-blue-800 font-bold shadow text-sm border border-blue-300 whitespace-nowrap">색상 고르기</button>
                     </div>
                     <div className="flex flex-col gap-2">
                        <span className="text-xs font-bold text-gray-700 text-center">신발 (15종)</span>
-                       <button onClick={() => openPopup('shoesStyle', '신발 스타일', styleOptions.shoesStyle)} className="py-2 bg-purple-400 hover:bg-purple-500 rounded-xl text-white font-bold shadow text-sm">스타일 고르기</button>
-                       <button onClick={() => openPopup('shoesColor', '신발 색상', null, true)} className="py-2 bg-purple-100 hover:bg-purple-200 rounded-xl text-purple-800 font-bold shadow text-sm border border-purple-300">색상 고르기</button>
+                       <button onClick={() => openPopup('shoesStyle', '신발 스타일', styleOptions.shoesStyle)} className="py-2 bg-purple-400 hover:bg-purple-500 rounded-xl text-white font-bold shadow text-sm whitespace-nowrap">스타일 고르기</button>
+                       <button onClick={() => openPopup('shoesColor', '신발 색상', null, true)} className="py-2 bg-purple-100 hover:bg-purple-200 rounded-xl text-purple-800 font-bold shadow text-sm border border-purple-300 whitespace-nowrap">색상 고르기</button>
                     </div>
                     <div className="flex flex-col gap-2">
                        <span className="text-xs font-bold text-pink-600 text-center">모자 (구매품)</span>
-                       <button onClick={() => openPopup('hatStyle', '보유 모자', purchasedItems.hats)} className="py-2 bg-pink-400 hover:bg-pink-500 rounded-xl text-white font-bold shadow text-sm">보유 목록</button>
-                       <button onClick={() => openPopup('hatColor', '모자 색상', null, true)} className="py-2 bg-pink-100 hover:bg-pink-200 rounded-xl text-pink-800 font-bold shadow text-sm border border-pink-300">색상 고르기</button>
+                       <button onClick={() => openPopup('hatStyle', '보유 모자', purchasedItems.hats)} className="py-2 bg-pink-400 hover:bg-pink-500 rounded-xl text-white font-bold shadow text-sm whitespace-nowrap">보유 목록</button>
+                       <button onClick={() => openPopup('hatColor', '모자 색상', null, true)} className="py-2 bg-pink-100 hover:bg-pink-200 rounded-xl text-pink-800 font-bold shadow text-sm border border-pink-300 whitespace-nowrap">색상 고르기</button>
                     </div>
                     <div className="flex flex-col gap-2 col-span-2 md:col-span-1">
                        <span className="text-xs font-bold text-pink-600 text-center">손 물건 (구매품)</span>
-                       <button onClick={() => openPopup('handStyle', '보유 손물건', purchasedItems.hands)} className="py-2 bg-orange-400 hover:bg-orange-500 rounded-xl text-white font-bold shadow text-sm">보유 목록</button>
-                       <button onClick={() => openPopup('handColor', '손물건 색상', null, true)} className="py-2 bg-orange-100 hover:bg-orange-200 rounded-xl text-orange-800 font-bold shadow text-sm border border-orange-300">색상 고르기</button>
+                       <button onClick={() => openPopup('handStyle', '보유 손물건', purchasedItems.hands)} className="py-2 bg-orange-400 hover:bg-orange-500 rounded-xl text-white font-bold shadow text-sm whitespace-nowrap">보유 목록</button>
+                       <button onClick={() => openPopup('handColor', '손물건 색상', null, true)} className="py-2 bg-orange-100 hover:bg-orange-200 rounded-xl text-orange-800 font-bold shadow text-sm border border-orange-300 whitespace-nowrap">색상 고르기</button>
                     </div>
                   </div>
                   <button onClick={() => { setScene('SLIDE_IN'); playSfx('slide'); }} className="w-full py-4 mt-2 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 text-white text-2xl font-bold rounded-2xl shadow-xl hover:scale-[1.02] transition animate-pulse border-4 border-white">
