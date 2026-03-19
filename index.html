@@ -602,7 +602,7 @@
         };
         document.addEventListener('click', handleFirstClick);
         return () => document.removeEventListener('click', handleFirstClick);
-      }, [isMusicPlaying]);
+      }, []);
 
       const styleOptions = {
         hairStyle: 15, shirtStyle: 15, shoesStyle: 15, faceStyle: 6,
