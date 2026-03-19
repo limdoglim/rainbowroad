@@ -624,6 +624,10 @@
               let label = id === 0 ? '기본' : id;
               if (part === 'hatStyle' && EMOJI_HATS[id]) label = EMOJI_HATS[id];
               else if (part === 'handStyle' && EMOJI_HANDS[id]) label = EMOJI_HANDS[id];
+              else if (part === 'outfit' && id > 0) {
+                const info = SHOP_ITEMS.find(i => i.id === id && i.type === 'catClothes');
+                label = info ? info.name : '옷 ' + id;
+              }
               else if (id > 0) label = '아이템 ' + id;
               return { value: id, label };
            });
@@ -687,7 +691,7 @@
             hunger: Math.max(0, prev.hunger - 1),
             happiness: Math.max(0, prev.happiness - 1)
           }));
-        }, 60000);
+        }, 30000);
         return () => clearInterval(catTimer);
       }, []);
 
@@ -863,8 +867,12 @@
                   {showStylePopup.title} 선택
                 </h2>
                 <div className="overflow-y-auto pr-2 custom-scrollbar grid grid-cols-4 md:grid-cols-5 gap-3">
-                  {showStylePopup.options.map((opt, idx) => (
-                    <button 
+                  {showStylePopup.options.map((opt, idx) => {
+                    const isSelected = showStylePopup.part === 'outfit'
+                      ? catStats.outfit === opt.value
+                      : outfit[showStylePopup.part] === opt.value;
+                    return (
+                    <button
                       key={idx}
                       onClick={() => {
                          playSfx('click');
@@ -877,12 +885,19 @@
                          }
                          if (showStylePopup.part !== 'feed') setShowStylePopup(null);
                       }}
-                      className={`${opt.color ? "h-14" : "h-24"} rounded-2xl flex flex-col items-center justify-center shadow-sm border-2 transition hover:scale-110 active:scale-95 flex-shrink-0 overflow-hidden relative ${outfit[showStylePopup.part] === opt.value ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200' : 'border-gray-200 bg-gray-50 hover:border-indigo-300'}`}
+                      className={`${opt.color ? "h-14" : showStylePopup.part === 'outfit' ? "h-36" : "h-24"} rounded-2xl flex flex-col items-center justify-center shadow-sm border-2 transition hover:scale-110 active:scale-95 flex-shrink-0 overflow-hidden relative ${isSelected ? 'border-indigo-500 bg-indigo-50 ring-2 ring-indigo-200' : 'border-gray-200 bg-gray-50 hover:border-indigo-300'}`}
                       style={opt.color ? { backgroundColor: opt.color } : {}}
                     >
-                      {opt.color ? null : 
-                        (showStylePopup.part === 'feed' || showStylePopup.part === 'outfit' || showStylePopup.part.includes('Color')) ? 
-                        <span className="text-sm font-bold text-gray-700">{opt.label}</span> : 
+                      {opt.color ? null :
+                        showStylePopup.part === 'outfit' ? (
+                          <>
+                            <div className="absolute top-1" style={{transform: 'scale(0.47)', transformOrigin: 'top center', width: '120px', height: '120px'}}>
+                              <Cat hunger={7} happiness={7} outfit={opt.value} isHappy={false} />
+                            </div>
+                            <span className="absolute bottom-1 text-[10px] font-bold text-gray-600 bg-white/80 px-1 rounded text-center leading-tight w-full truncate px-2">{opt.label}</span>
+                          </>
+                        ) : (showStylePopup.part === 'feed' || showStylePopup.part.includes('Color')) ?
+                        <span className="text-sm font-bold text-gray-700">{opt.label}</span> :
                         <div className="absolute top-2 w-[100px] h-[150px] transform scale-[0.4] origin-top flex justify-center">
                           <Character outfit={getRenderOutfit({...outfit, [showStylePopup.part]: opt.value})} scale={1} />
                         </div>
@@ -891,7 +906,8 @@
                          <span className="absolute bottom-1 text-[10px] font-bold text-gray-400 bg-white/80 px-1 rounded">{opt.label}</span>
                       )}
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -912,13 +928,13 @@
                   {/* 패밀리 펫 고양이 영역 */}
                   <div className="bg-white/90 p-4 rounded-3xl shadow-lg border-2 border-pink-200 flex flex-col items-center relative min-w-[300px]">
                     <h3 className="text-lg font-bold text-gray-700 absolute top-2 left-4">내 고양이 🐾</h3>
-                    <div className="flex gap-2 mt-8 mb-2 w-full px-2 text-sm font-bold text-gray-600 justify-around whitespace-nowrap">
-                       <div className="flex flex-col items-center">
-                         <span>🍖 배고픔: {catStats.hunger}/10</span>
+                    <div className="flex gap-3 mt-8 mb-2 w-full px-2 text-sm font-bold text-gray-600 justify-around">
+                       <div className="flex flex-col items-center min-w-0">
+                         <span className="whitespace-nowrap">🍖 배고픔: {catStats.hunger}/10</span>
                          <div className="w-24 bg-gray-200 h-2 rounded-full overflow-hidden mt-1"><div className="bg-orange-400 h-full" style={{width: `${catStats.hunger*10}%`}}></div></div>
                        </div>
-                       <div className="flex flex-col items-center">
-                         <span>💖 행복도: {catStats.happiness}/10</span>
+                       <div className="flex flex-col items-center min-w-0">
+                         <span className="whitespace-nowrap">💖 행복도: {catStats.happiness}/10</span>
                          <div className="w-24 bg-gray-200 h-2 rounded-full overflow-hidden mt-1"><div className="bg-pink-400 h-full" style={{width: `${catStats.happiness*10}%`}}></div></div>
                        </div>
                     </div>
